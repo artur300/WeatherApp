@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Internet Permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/my_lunch"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/my_lunch_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AP"
+        android:name=".helper_classes.weatherApplication"
+        tools:targetApi="31">
+
+        <!-- Splash Activity -->
+        <activity
+            android:name="com.example.weatherApp.weather_user_interface.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Main Activity -->
+        <activity
+            android:name="com.example.weatherApp.weather_user_interface.WeatherMainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

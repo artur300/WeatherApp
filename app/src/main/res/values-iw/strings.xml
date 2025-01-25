@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recipe Master</string>
+    <string name="enter_food_name">הזן את שם המנה</string>
+    <string name="enter_author_name">הזן את שם המחבר</string>
+    <string name="enter_description">הזן תיאור</string>
+    <string name="enter_ingredients">הזן רכיבים</string>
+    <string name="pick_image">בחר תמונה</string>
+    <string name="preview">תצוגה מקדימה</string>
+    <string name="add_food_confirm">הוסף מנה/אישור</string>
+    <string name="food_image">תמונת מנה</string>
+    <string name="food_name">שם המנה</string>
+    <string name="author_name_unknown">שם המחבר: לא ידוע</string>
+    <string name="ingredients">רכיבים</string>
+    <string name="description">תיאור</string>
+    <string name="delete">מחק</string>
+    <string name="back">חזור</string>
+    <string name="view_details">צפה בפרטים</string>
+    <string name="edit">ערוך</string>
+    <string name="delete_card">מחק כרטיס</string>
+    <string name="fromAdd_To_List">חזור</string>
+    <string name="back_to_card">חזור</string>
+    <string name="delete_view">מחק</string>
+    <string name="ingredients_view">מצרכים</string>
+    <string name="description_view">תיאור</string>
+    <string name="author_name_unknown_view">שם מחבר: לא ידוע</string>
+    <string name="food_name_view">שם המנה</string>
+    <string name="food_image_view">תמונת המנה</string>
+    <string name="steak_platter_card">מנת סטייק</string>
+    <string name="author_unknown_card">שם המחבר: %s</string>
+    <string name="view_details_card">צפה בפרטים</string>
+    <string name="edit_card">ערוך</string>
+    <string name="delete_card1">מחק</string>
+    <string name="edit_details">ערוך פרטים</string>
+    <string name="image_too_large">התמונה גדולה מדי (מקסימום 2MB). בחר תמונה קטנה יותר.</string>
+    <string name="fill_all_fields_message">יש למלא את כל השדות לפני אישור</string>
+    <string name="Unknown_message">לא ידוע</string>
+    <string name="share">שתף</string>
+    <string name="item_added">הפריט נוסף בהצלחה!</string>
+    <string name="item_deleted">הפריט נמחק בהצלחה!</string>
+    <string name="item_updated">הפריט עודכן בהצלחה!</string>
+    <string name="add_recipe">הוסף מתכון</string>
+    <string name="update_recipe">עדכן מתכון</string>
+    <string name="tap_to_enlarge_image">לחץ להגדלת התמונה</string>
+    <string name="close">סגור</string>
+    <string name="full_screen_image">תמונה במסך מלא</string>
+    <string name="menu_icon">אייקון תפריט</string>
+    <string name="food_image_1">תמונת מאכל</string>
+    <string name="share_button">כפתור שיתוף</string>
+    <string name="logo">לוגו</string>
+    <string name="recipe_details">פרטי מתכון</string>
+
+
+    <string name="apply_changes_receipt">ליישם שינויים?</string>
+    <string name="no">לא</string>
+    <string name="yes">כן</string>
+    <string name="delete_receipt">למחוק את המתכון?</string>
+    <string name="delete_receipt_title">מחיקת מתכון</string>
+
+
+</resources>
