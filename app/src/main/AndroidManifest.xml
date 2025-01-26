@@ -16,20 +16,14 @@
         android:name=".helper_classes.weatherApplication"
         tools:targetApi="31">
 
-        <!-- Splash Activity -->
+        <!-- Main Activity -->
         <activity
-            android:name="com.example.weatherApp.weather_user_interface.SplashActivity"
+            android:name="com.example.weatherApp.weather_user_interface.WeatherMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Main Activity -->
-        <activity
-            android:name="com.example.weatherApp.weather_user_interface.WeatherMainActivity"
-            android:exported="true" />
     </application>
-
 </manifest>

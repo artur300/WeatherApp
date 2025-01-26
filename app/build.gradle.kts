@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin") // הוסף שורה זו
 }
 
 android {
