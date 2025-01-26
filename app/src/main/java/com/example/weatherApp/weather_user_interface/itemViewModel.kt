@@ -5,7 +5,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.weatherApp.weather_data.weather_models.Item
-import com.example.weatherApp.weather_data.weather_repositories.ItemRepository
+import com.example.weatherApp.weather_data.Repositories.ItemRepository
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 

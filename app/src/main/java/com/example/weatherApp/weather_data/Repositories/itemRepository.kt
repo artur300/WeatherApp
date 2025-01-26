@@ -1,5 +1,5 @@
 @file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
-package com.example.weatherApp.weather_data.weather_repositories
+package com.example.weatherApp.weather_data.Repositories
 
 import android.app.Application
 import com.example.weatherApp.weather_data.local_weather_dataBase.itemDataBase
