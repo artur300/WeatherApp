@@ -17,18 +17,8 @@ class WeatherRepository @Inject constructor(
     fun getWeatherByLocation(location: String) = fetchAndSyncData(
         getLocalData = { localDataSource.getWeatherDataByLocation(location) },
         fetchRemoteData = { remoteDataSource.getWeatherByLocation(location) },
-        saveRemoteDataLocally = { localDataSource.insertWeatherData(it.toEntity()) }
+        saveRemoteDataLocally = { localDataSource.insertWeatherData(it) }
     )
 
-    // פונקציה שמביאה רשימת מיקומים תואמים לחיפוש
-    fun searchLocation(query: String) = fetchAndSyncData(
-        getLocalData = { localDataSource.getAllWeatherData() }, // לדוגמה: מחזיר את כל הנתונים השמורים
-        fetchRemoteData = { remoteDataSource.searchLocation(query) },
-        saveRemoteDataLocally = { response ->
-            response.forEach {
-                localDataSource.insertWeatherData(it.toEntity())
-            }
-        }
-    )
 }
 
