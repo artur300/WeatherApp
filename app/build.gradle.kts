@@ -70,6 +70,7 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3") // Latest version of coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     // Testing dependencies
     testImplementation(libs.junit)

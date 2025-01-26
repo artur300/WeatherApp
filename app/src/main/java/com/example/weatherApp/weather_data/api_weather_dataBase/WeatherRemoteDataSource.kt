@@ -10,12 +10,12 @@ class WeatherRemoteDataSource @Inject constructor(
 
     // פונקציה לקבלת נתוני מזג אוויר לפי מיקום
     suspend fun getWeatherByLocation(location: String) = handleApiCall {
-        weatherService.getWeatherByLocation(apiKey = "YOUR_API_KEY", location = location)
+        weatherService.getWeatherByLocation(apiKey = "f3b82ad32cb74471b8e71237252501", location = location)
     }
 
     // פונקציה לחיפוש מיקום
     suspend fun searchLocation(query: String) = handleApiCall {
-        weatherService.searchLocation(apiKey = "YOUR_API_KEY", query = query)
+        weatherService.searchLocation(apiKey = "f3b82ad32cb74471b8e71237252501", query = query)
     }
 }
 
