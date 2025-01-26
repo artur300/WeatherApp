@@ -5,11 +5,11 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
 
-fun <T, A> fetchAndSyncData(
-    getLocalData: () -> LiveData<T>, // פונקציה שמביאה נתונים ממאגר מקומי
-    fetchRemoteData: suspend () -> DataStatus<A>, // פונקציה שמביאה נתונים ממקור מרוחק (API)
-    saveRemoteDataLocally: suspend (A) -> Unit // פונקציה ששומרת נתונים מרוחקים למאגר המקומי
-): LiveData<DataStatus<T>> = liveData(Dispatchers.IO) {
+fun <LocalDataType, RemoteDataType> fetchAndSyncData(
+    getLocalData: () -> LiveData<LocalDataType>, // פונקציה שמביאה נתונים ממאגר מקומי
+    fetchRemoteData: suspend () -> DataStatus<RemoteDataType>, // פונקציה שמביאה נתונים ממקור מרוחק (API)
+    saveRemoteDataLocally: suspend (RemoteDataType) -> Unit // פונקציה ששומרת נתונים מרוחקים למאגר המקומי
+): LiveData<DataStatus<LocalDataType>> = liveData(Dispatchers.IO) {
 
     // מודיעים שהתחיל תהליך טעינה
     emit(DataStatus.loading())
