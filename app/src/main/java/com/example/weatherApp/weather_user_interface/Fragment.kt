@@ -1,17 +1,16 @@
 package com.example.weatherApp.weather_user_interface
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.weatherApp.R
+import com.example.weatherApp.helper_classes.Loading
+import com.example.weatherApp.helper_classes.Success
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
@@ -31,28 +30,33 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
             if (cityName.isNotEmpty()) {
                 weatherViewModel.getWeatherByLocation(cityName).observe(viewLifecycleOwner) { dataStatus ->
                     when (dataStatus.status) {
-                        is com.example.weatherApp.helper_classes.Success -> {
+                        is Success -> {
                             val weatherData = dataStatus.status.data
                             weatherResult.text = """
-                                City: ${weatherData?.locationName}
-                                Temperature: ${weatherData?.tempC}°C
-                                Feels Like: ${weatherData?.feelsLikeC}°C
-                                Condition: ${weatherData?.conditionText}
-                                Wind: ${weatherData?.windKph} kph ${weatherData?.windDir}
-                                Humidity: ${weatherData?.humidity}%
-                            """.trimIndent()
+            City: ${weatherData?.locationName}
+            Temperature: ${weatherData?.tempC}°C
+            Feels Like: ${weatherData?.feelsLikeC}°C
+            Condition: ${weatherData?.conditionText}
+            Wind: ${weatherData?.windKph} kph ${weatherData?.windDir}
+            Humidity: ${weatherData?.humidity}%
+        """.trimIndent()
                         }
-                        is com.example.weatherApp.helper_classes.Loading -> {
+                        is Loading -> {
                             weatherResult.text = "Loading weather data..."
                         }
-                        is com.example.weatherApp.helper_classes.Error -> {
+                        is Error -> {
                             weatherResult.text = "Error: ${dataStatus.status.message}"
                         }
+                        else -> {
+                            weatherResult.text = "Unexpected state"
+                        }
                     }
+
                 }
             } else {
                 weatherResult.text = "Please enter a city name."
             }
         }
+
     }
 }
