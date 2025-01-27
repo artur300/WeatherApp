@@ -9,7 +9,7 @@ data class WeatherRoomEntity(
     val tempC: Double, // טמפרטורה
     val feelsLikeC: Double, // טמפרטורה מורגשת
     val windKph: Double, // מהירות רוח
-    val windDir: String, // כיוון רוח
+    val windDir: String?, // כיוון רוח
     val humidity: Int, // לחות
     val conditionText: String // תיאור מזג האוויר
 )
