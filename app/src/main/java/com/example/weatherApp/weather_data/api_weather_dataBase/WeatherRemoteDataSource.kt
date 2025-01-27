@@ -30,6 +30,7 @@ class WeatherRemoteDataSource @Inject constructor(
                 apiData?.let { data ->
                     // בדיקות Log על כל שדה חשוב
                     Log.d("WeatherRemoteDataSource", "Location Name: ${data.location.name}")
+                    Log.d("WeatherRemoteDataSource", "Country: ${data.location.country}")
                     Log.d("WeatherRemoteDataSource", "Temperature (C): ${data.current.tempC}")
                     Log.d("WeatherRemoteDataSource", "Feels Like (C): ${data.current.feelsLikeC}")
                     Log.d("WeatherRemoteDataSource", "Wind Speed (Kph): ${data.current.windKph}")
@@ -45,7 +46,8 @@ class WeatherRemoteDataSource @Inject constructor(
                         windKph = data.current.windKph,
                         windDir = data.current.windDir ?: "N/A",
                         humidity = data.current.humidity,
-                        conditionText = data.current.condition.text
+                        conditionText = data.current.condition.text,
+                        country = data.location.country
                     )
                     DataStatus.success(roomEntity)
                 } ?: DataStatus.error("API returned null data")

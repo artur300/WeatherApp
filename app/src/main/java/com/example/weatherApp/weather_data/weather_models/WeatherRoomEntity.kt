@@ -11,5 +11,6 @@ data class WeatherRoomEntity(
     val windKph: Double, // מהירות רוח
     val windDir: String?, // כיוון רוח
     val humidity: Int, // לחות
-    val conditionText: String // תיאור מזג האוויר
+    val conditionText: String, // תיאור מזג האוויר
+    val country: String // מדינה*******
 )

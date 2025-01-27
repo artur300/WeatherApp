@@ -33,6 +33,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                         is Success -> {
                             val weatherData = dataStatus.status.data
                             weatherResult.text = """
+            Country: ${weatherData?.country}
             City: ${weatherData?.locationName}
             Temperature: ${weatherData?.tempC}°C
             Feels Like: ${weatherData?.feelsLikeC}°C
