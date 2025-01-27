@@ -1,6 +1,6 @@
 package com.example.weatherApp.weather_data.weather_models
 
-// WeatherApiData.kt
+import com.google.gson.annotations.SerializedName
 
 data class WeatherApiData(
     val location: Location,
@@ -13,20 +13,21 @@ data class Location(
     val country: String,
     val lat: Double,
     val lon: Double,
-    val localtime: String
+    @SerializedName("localtime") val localtime: String
 )
 
 data class Current(
-    val tempC: Double,
-    val feelslikeC: Double,
-    val windKph: Double,
-    val windDir: String,
-    val humidity: Int,
-    val condition: Condition
+    @SerializedName("temp_c") val tempC: Double, // טמפרטורה
+    @SerializedName("feelslike_c") val feelsLikeC: Double, // טמפרטורה מורגשת
+    @SerializedName("wind_kph") val windKph: Double, // מהירות רוח
+    @SerializedName("wind_dir") val windDir: String?, // כיוון רוח
+    val humidity: Int, // לחות
+    val condition: Condition // תיאור מזג האוויר
 )
 
 data class Condition(
     val text: String,
     val icon: String
 )
+
 

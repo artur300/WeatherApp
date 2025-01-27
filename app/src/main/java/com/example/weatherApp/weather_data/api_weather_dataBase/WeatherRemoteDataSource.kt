@@ -20,6 +20,9 @@ class WeatherRemoteDataSource @Inject constructor(
                 location = location
             )
 
+            // הדפסת לוג של התגובה הגולמית (Raw Response)
+            Log.d("WeatherRemoteDataSource", "Raw API Response: ${response.body()?.toString()}")
+
             if (response.isSuccessful) {
                 val apiData = response.body() // מתקבל WeatherApiData
                 Log.d("WeatherRemoteDataSource", "API Response: $apiData") // בדיקת כל הנתונים
@@ -28,7 +31,7 @@ class WeatherRemoteDataSource @Inject constructor(
                     // בדיקות Log על כל שדה חשוב
                     Log.d("WeatherRemoteDataSource", "Location Name: ${data.location.name}")
                     Log.d("WeatherRemoteDataSource", "Temperature (C): ${data.current.tempC}")
-                    Log.d("WeatherRemoteDataSource", "Feels Like (C): ${data.current.feelslikeC}")
+                    Log.d("WeatherRemoteDataSource", "Feels Like (C): ${data.current.feelsLikeC}")
                     Log.d("WeatherRemoteDataSource", "Wind Speed (Kph): ${data.current.windKph}")
                     Log.d("WeatherRemoteDataSource", "Wind Direction: ${data.current.windDir}")
                     Log.d("WeatherRemoteDataSource", "Humidity: ${data.current.humidity}")
@@ -38,11 +41,11 @@ class WeatherRemoteDataSource @Inject constructor(
                     val roomEntity = WeatherRoomEntity(
                         locationName = data.location.name,
                         tempC = data.current.tempC,
-                        feelsLikeC = data.current.feelslikeC,
+                        feelsLikeC = data.current.feelsLikeC,
                         windKph = data.current.windKph,
                         windDir = data.current.windDir ?: "N/A",
                         humidity = data.current.humidity,
-                        conditionText = data.current.condition.text ?: "No condition available"
+                        conditionText = data.current.condition.text
                     )
                     DataStatus.success(roomEntity)
                 } ?: DataStatus.error("API returned null data")
@@ -55,6 +58,7 @@ class WeatherRemoteDataSource @Inject constructor(
             DataStatus.error("Exception occurred: ${e.localizedMessage}")
         }
     }
+
 }
 
 
