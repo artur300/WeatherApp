@@ -1,60 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Recipe Master</string>
-    <string name="enter_food_name">Enter Food Name</string>
-    <string name="enter_author_name">Enter Author Name</string>
-    <string name="enter_description">Enter description</string>
-    <string name="enter_ingredients">Enter ingredients</string>
-    <string name="pick_image">Pick Image</string>
-    <string name="preview">Preview</string>
-    <string name="add_food_confirm">Add Food/Confirm</string>
-    <string name="food_image">Food Image</string>
-    <string name="food_name">Food Name</string>
-    <string name="author_name_unknown">Author Name: Unknown</string>
-    <string name="ingredients">Ingredients</string>
-    <string name="description">Description</string>
-    <string name="delete">Delete</string>
-    <string name="back">Back</string>
-    <string name="view_details">View Details</string>
-    <string name="edit">Edit</string>
-    <string name="delete_card">Delete</string>
-    <string name="fromAdd_To_List">Back</string>
-    <string name="back_to_card">Back</string>
-    <string name="delete_view">Delete</string>
-    <string name="ingredients_view">Ingredients</string>
-    <string name="description_view">Description</string>
-    <string name="author_name_unknown_view">Author Name: Unknown</string>
-    <string name="food_name_view">Food Name</string>
-    <string name="food_image_view">Food Image</string>
-    <string name="steak_platter_card">Steak Platter</string>
-    <string name="author_unknown_card">Author Name: %s</string>
-    <string name="view_details_card">View Details</string>
-    <string name="edit_card">Edit</string>
-    <string name="delete_card1">Delete</string>
-    <string name="edit_details">Edit</string>
-    <string name="image_too_large">The image is too large (maximum 2MB). Please select a smaller image.</string>
-    <string name="fill_all_fields_message">fill all fields</string>
-    <string name="Unknown_message">Unknown</string>
-    <string name="share">share</string>
-    <string name="item_added">Item added successfully!</string>
-    <string name="item_deleted">Item deleted successfully!</string>
-    <string name="item_updated">Item updated successfully!</string>
-    <string name="add_recipe">Add Recipe</string>
-    <string name="update_recipe">Update Recipe</string>
-    <string name="tap_to_enlarge_image">Tap to enlarge image</string>
-    <string name="close">Close</string>
-    <string name="full_screen_image">full screen Image</string>
-    <string name="menu_icon">menu_icon</string>
-    <string name="food_image_1">food image</string>
-    <string name="share_button">share button</string>
-    <string name="logo">logo</string>
+    <string name="app_name">Weather App</string>
+    <string name="select_country">Select a Country</string>
+    <string name="select_city">Select a City</string>
+    <string name="select_country_city">Please select a country and city</string>
+    <string name="fetching_weather">Fetching weather data...</string>
+    <string name="loading">Loading...</string>
+    <string name="error">Error: %1$s</string>
+    <string name="error_empty_data">Error: Received empty data!</string>
+    <string name="fetch_weather">Fetch Weather</string>
+    <string name="weather_result_placeholder">Weather data will appear here.</string>
 
-
-
-
-    <string name="apply_changes_receipt">Apply Changes?</string>
-    <string name="no">No</string>
-    <string name="yes">Yes</string>
-    <string name="delete_receipt">Delete Receipt?</string>
-    <string name="delete_receipt_title">Delete Receipt</string>
-    <string name="recipe_details">Recipe Details</string>
+    <!-- הפרדה לכל פרמטר -->
+    <string name="weather_city">City: %1$s</string>
+    <string name="weather_country">Country: %1$s</string>
+    <string name="temperature">Temperature: %.1f°C</string>
+    <string name="feels_like">Feels Like: %.1f°C</string>
+    <string name="wind_speed">Wind Speed: %.1f km/h (%2$s)</string>
+    <string name="humidity">Humidity: %1$d%%</string>
+    <string name="condition">Condition: %1$s</string>
+    <string name="city">City:</string>
+    <string name="country">Country:</string>
 </resources>
+

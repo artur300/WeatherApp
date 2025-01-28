@@ -1,42 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:padding="16dp">
 
-
-
-    <!-- Spinner לבחירת מדינה -->
-    <Spinner
-        android:id="@+id/spinner_country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- Spinner לבחירת עיר -->
-    <Spinner
-        android:id="@+id/spinner_city"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:orientation="vertical">
 
-    <!-- כפתור לשליחת בקשת הנתונים -->
-    <Button
-        android:id="@+id/btn_fetch_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fetch Weather"
-        android:layout_marginTop="16dp" />
+        <Spinner
+            android:id="@+id/spinner_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-    <!-- תצוגה להצגת התוצאה -->
-    <TextView
-        android:id="@+id/tv_weather_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Weather data will appear here."
-        android:textSize="16sp"
-        android:padding="16dp"
-        android:gravity="center" />
-</LinearLayout>
+        <Spinner
+            android:id="@+id/spinner_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_fetch_weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fetch_weather"
+            android:layout_marginTop="16dp"/>
+
+        <!-- מקום להצגת התוצאות -->
+        <TextView
+            android:id="@+id/tvWeatherCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/city"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvWeatherCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/country"
+            android:textSize="16sp"
+            android:padding="8dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvFeelsLike"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvWindSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="8dp"/>
+    </LinearLayout>
+</ScrollView>
