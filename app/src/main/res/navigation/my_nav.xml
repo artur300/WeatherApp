@@ -3,11 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/weatherFragment">
+    app:startDestination="@id/countryCityFragment">
 
     <fragment
         android:id="@+id/weatherFragment"
         android:name="com.example.weatherApp.weather_user_interface.WeatherFragment"
         android:label="WeatherFragment"
         tools:layout="@layout/layout_weather_fragment" />
+    <fragment
+        android:id="@+id/countryCityFragment"
+        android:name="com.example.weatherApp.weather_user_interface.CountryCityFragment"
+        android:label="CountryCityFragment" >
+        <action
+            android:id="@+id/action_countryCityFragment_to_weatherFragment"
+            app:destination="@id/weatherFragment" />
+    </fragment>
 </navigation>
