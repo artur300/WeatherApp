@@ -5,12 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "weather_data")
 data class WeatherRoomEntity(
-    @PrimaryKey val locationName: String, // שם העיר
-    val tempC: Double, // טמפרטורה
-    val feelsLikeC: Double, // טמפרטורה מורגשת
-    val windKph: Double, // מהירות רוח
-    val windDir: String?, // כיוון רוח
-    val humidity: Int, // לחות
-    val conditionText: String, // תיאור מזג האוויר
-    val country: String // מדינה*******
+    @PrimaryKey val name: String,  // 🔄 שינוי מ-locationName ל-name כדי להתאים ל-API
+    val country: String,  // לשימוש ב-Query
+    val tempC: Double,
+    val feelsLikeC: Double,
+    val windKph: Double,
+    val windDir: String,
+    val humidity: Int,
+    val conditionText: String
 )
+

@@ -25,9 +25,8 @@ class WeatherRepository @Inject constructor(
 
         return fetchAndSyncData(
             getLocalData = {
-                val liveData = localDataSource.getWeatherDataByLocation("$city, $country")
+                val liveData = localDataSource.getWeatherDataByLocation(city, country)
 
-                // ✅ השתמש ב-PostValue במקום observeForever
                 val liveDataResult = MutableLiveData<WeatherRoomEntity>()
                 CoroutineScope(Dispatchers.Main).launch {
                     liveData.observeForever { data ->
@@ -51,7 +50,7 @@ class WeatherRepository @Inject constructor(
                     localDataSource.insertWeatherData(weatherData)
 
                     // ✅ בדיקה אם הנתונים באמת נשמרו ב-Room
-                    val savedData = localDataSource.getWeatherDataByLocation("$city, $country")
+                    val savedData = localDataSource.getWeatherDataByLocation(city, country)
                     CoroutineScope(Dispatchers.Main).launch {
                         savedData.observeForever { data ->
                             Log.d("WeatherRepository", "🔍 Data from Room after save: $data")
@@ -61,6 +60,7 @@ class WeatherRepository @Inject constructor(
             }
         )
     }
+
 
 }
 

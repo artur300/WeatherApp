@@ -9,11 +9,11 @@ interface WeatherDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeatherData(weatherData: WeatherRoomEntity)
 
-    @Query("SELECT * FROM weather_data WHERE locationName = :locationName")
-    fun getWeatherDataByLocation(locationName: String): LiveData<WeatherRoomEntity>
+    @Query("SELECT * FROM weather_data WHERE name = :city AND country = :country")
+    fun getWeatherDataByLocation(city: String, country: String): LiveData<WeatherRoomEntity>
 
-    @Query("DELETE FROM weather_data WHERE locationName = :locationName")
-    suspend fun deleteWeatherData(locationName: String)
+    @Query("DELETE FROM weather_data WHERE name = :city AND country = :country")
+    suspend fun deleteWeatherData(city: String, country: String)
 
     @Query("SELECT * FROM weather_data")
     fun getAllWeatherData(): LiveData<List<WeatherRoomEntity>>

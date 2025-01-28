@@ -140,7 +140,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                     val weatherData = status.data
                     if (weatherData != null) {
                         val resultText = """
-                🌍 ${weatherData.locationName}, ${weatherData.country}
+                🌍 ${weatherData.name}, ${weatherData.country}
                 🌡 טמפרטורה: ${weatherData.tempC}°C
                 ❄ מרגיש כמו: ${weatherData.feelsLikeC}°C
                 💨 מהירות רוח: ${weatherData.windKph} km/h (${weatherData.windDir})
