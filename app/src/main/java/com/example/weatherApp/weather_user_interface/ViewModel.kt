@@ -1,5 +1,6 @@
 package com.example.weatherApp.weather_user_interface
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherApp.helper_classes.DataStatus
@@ -13,8 +14,12 @@ class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    // LiveData לקבל נתוני מזג האוויר
-    fun getWeatherByLocation(location: String): LiveData<DataStatus<WeatherRoomEntity>> {
-        return repository.getWeatherByLocation(location)
+    // LiveData לקבלת נתוני מזג האוויר
+    fun getWeatherByLocation(city: String, country: String): LiveData<DataStatus<WeatherRoomEntity>> {
+        Log.d("WeatherViewModel", "📌 Fetching weather data for: $city, $country")
+        val weatherData = repository.getWeatherByLocation(city, country)
+        Log.d("WeatherViewModel", "✅ Data fetched from repository, LiveData ready to be observed")
+        return weatherData
     }
 }
+

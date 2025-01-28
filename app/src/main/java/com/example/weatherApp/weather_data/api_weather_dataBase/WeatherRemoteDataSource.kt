@@ -12,33 +12,38 @@ class WeatherRemoteDataSource @Inject constructor(
     private val weatherService: WeatherService
 ) {
 
-    suspend fun getWeatherByLocation(location: String): DataStatus<WeatherRoomEntity> {
+    suspend fun getWeatherByLocation(city: String, country: String): DataStatus<WeatherRoomEntity> {
+        Log.d("WeatherRemoteDataSource", "🔹 getWeatherByLocation called with city: $city, country: $country")
+
         return try {
-            // קבלת נתונים מה-API
+            val query = "$city,$country"  // 🔹 מחברים את העיר והמדינה בפורמט "city,country"
+            Log.d("WeatherRemoteDataSource", "✅ Query constructed: $query")
+
             val response = weatherService.getWeatherByLocation(
                 apiKey = "f3b82ad32cb74471b8e71237252501",
-                location = location
+                location = query  // 🔹 משתמשים ב- query בפנייה ל-API
             )
 
-            // הדפסת לוג של התגובה הגולמית (Raw Response)
-            Log.d("WeatherRemoteDataSource", "Raw API Response: ${response.body()?.toString()}")
+            Log.d("WeatherRemoteDataSource", "🌍 API Request URL: https://api.weatherapi.com/v1/current.json?key=API_KEY&q=$query")
+            Log.d("WeatherRemoteDataSource", "📩 Response received: ${response.code()} - ${response.message()}")
 
             if (response.isSuccessful) {
-                val apiData = response.body() // מתקבל WeatherApiData
-                Log.d("WeatherRemoteDataSource", "API Response: $apiData") // בדיקת כל הנתונים
+                val apiData = response.body()
+                Log.d("WeatherRemoteDataSource", "📄 API Response Body: $apiData")
 
                 apiData?.let { data ->
-                    // בדיקות Log על כל שדה חשוב
-                    Log.d("WeatherRemoteDataSource", "Location Name: ${data.location.name}")
-                    Log.d("WeatherRemoteDataSource", "Country: ${data.location.country}")
-                    Log.d("WeatherRemoteDataSource", "Temperature (C): ${data.current.tempC}")
-                    Log.d("WeatherRemoteDataSource", "Feels Like (C): ${data.current.feelsLikeC}")
-                    Log.d("WeatherRemoteDataSource", "Wind Speed (Kph): ${data.current.windKph}")
-                    Log.d("WeatherRemoteDataSource", "Wind Direction: ${data.current.windDir}")
-                    Log.d("WeatherRemoteDataSource", "Humidity: ${data.current.humidity}")
-                    Log.d("WeatherRemoteDataSource", "Condition Text: ${data.current.condition.text}")
+                    Log.d("WeatherRemoteDataSource", "✅ Parsing API response into Room entity")
 
-                    // יצירת אובייקט RoomEntity
+                    // לוגים עבור כל שדה כדי לוודא שהוא מגיע תקין
+                    Log.d("WeatherRemoteDataSource", "📌 Location Name: ${data.location.name}")
+                    Log.d("WeatherRemoteDataSource", "🌡 Temperature (C): ${data.current.tempC}")
+                    Log.d("WeatherRemoteDataSource", "💨 Feels Like (C): ${data.current.feelsLikeC}")
+                    Log.d("WeatherRemoteDataSource", "🌬 Wind Speed (Kph): ${data.current.windKph}")
+                    Log.d("WeatherRemoteDataSource", "🧭 Wind Direction: ${data.current.windDir ?: "N/A"}")
+                    Log.d("WeatherRemoteDataSource", "💦 Humidity: ${data.current.humidity}")
+                    Log.d("WeatherRemoteDataSource", "☁️ Condition Text: ${data.current.condition.text}")
+                    Log.d("WeatherRemoteDataSource", "🌍 Country: ${data.location.country}")
+
                     val roomEntity = WeatherRoomEntity(
                         locationName = data.location.name,
                         tempC = data.current.tempC,
@@ -49,18 +54,21 @@ class WeatherRemoteDataSource @Inject constructor(
                         conditionText = data.current.condition.text,
                         country = data.location.country
                     )
+
+                    Log.d("WeatherRemoteDataSource", "✅ Room Entity created: $roomEntity")
                     DataStatus.success(roomEntity)
-                } ?: DataStatus.error("API returned null data")
+                } ?: run {
+                    Log.e("WeatherRemoteDataSource", "❌ API returned null data")
+                    DataStatus.error("API returned null data")
+                }
             } else {
-                Log.e("WeatherRemoteDataSource", "API Error: ${response.message()}")
+                Log.e("WeatherRemoteDataSource", "❌ API Error: ${response.message()} - ${response.code()}")
                 DataStatus.error("API error: ${response.message()}")
             }
         } catch (e: Exception) {
-            Log.e("WeatherRemoteDataSource", "Exception: ${e.localizedMessage}")
+            Log.e("WeatherRemoteDataSource", "❌ Exception occurred: ${e.localizedMessage}", e)
             DataStatus.error("Exception occurred: ${e.localizedMessage}")
         }
     }
-
 }
-
 

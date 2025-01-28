@@ -8,14 +8,19 @@
     android:gravity="center">
 
 
-    <!-- שדה להזנת שם העיר -->
-    <EditText
-        android:id="@+id/et_city_name"
+
+    <!-- Spinner לבחירת מדינה -->
+    <Spinner
+        android:id="@+id/spinner_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Spinner לבחירת עיר -->
+    <Spinner
+        android:id="@+id/spinner_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter city name"
-        android:inputType="text"
-        android:padding="12dp" />
+        android:visibility="gone"/>
 
     <!-- כפתור לשליחת בקשת הנתונים -->
     <Button
