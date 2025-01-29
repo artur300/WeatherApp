@@ -13,6 +13,8 @@ data class WeatherRoomEntity(
     val windKph: Double,
     val windDir: String,
     val humidity: Int,
-    val conditionText: String
+    val conditionText: String,
+    val conditionIcon: String  // 🖼️ שדה חדש לאייקון מזג האוויר
+
 )
 

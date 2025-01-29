@@ -27,6 +27,7 @@ class WeatherRemoteDataSource @Inject constructor(
                         windDir = data.current.windDir ?: "N/A",
                         humidity = data.current.humidity,
                         conditionText = data.current.condition.text,
+                        conditionIcon = "https:" + data.current.condition.icon,
                         country = data.location.country
                     )
                 }

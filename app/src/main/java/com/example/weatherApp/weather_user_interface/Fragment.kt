@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.weatherApp.R
 import com.example.weatherApp.databinding.LayoutWeatherFragmentBinding
 import com.example.weatherApp.weather_data.api_weather_dataBase.CountriesApiService
@@ -117,6 +118,12 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                 binding.tvWeatherCountry.visibility = View.VISIBLE
 
                 binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
+                //-----------------------icon-------
+                Glide.with(this)
+                    .load(weatherData.conditionIcon)
+                    .into(binding.weatherIcon)
+                //----------------------------------
+
                 binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
                 binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
                 binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
