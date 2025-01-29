@@ -10,6 +10,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/weatherBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/def"
+            android:contentDescription="@string/weather_background"
+            android:visibility="visible"
+            android:adjustViewBounds="true"/>
+
         <Spinner
             android:id="@+id/spinner_country"
             android:layout_width="match_parent"

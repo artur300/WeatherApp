@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.weatherApp.R
 import com.example.weatherApp.databinding.LayoutWeatherFragmentBinding
+import com.example.weatherApp.helper_classes.WeatherBackgroundProvider
 import com.example.weatherApp.weather_data.api_weather_dataBase.CountriesApiService
 import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
@@ -128,6 +129,13 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                 binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
                 binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
                 binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
+
+                //-- ✅ שינוי תמונת הרקע בהתאם למצב מזג האוויר
+                binding.weatherBackground.setImageResource(
+                    WeatherBackgroundProvider.getBackgroundForCondition(weatherData.conditionText)
+                )
+                //-----------------------------------------------------------------------------
+
             } else {
                 binding.tvWeatherCity.text = getString(R.string.error_empty_data)
                 binding.tvWeatherCountry.text = ""
