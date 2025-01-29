@@ -11,8 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.weatherApp.R
 import com.example.weatherApp.databinding.LayoutWeatherFragmentBinding
-import com.example.weatherApp.helper_classes.Loading
-import com.example.weatherApp.helper_classes.Success
 import com.example.weatherApp.weather_data.api_weather_dataBase.CountriesApiService
 import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
@@ -48,11 +46,13 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
         binding.btnFetchWeather.setOnClickListener {
             if (!selectedCountry.isNullOrEmpty() && !selectedCity.isNullOrEmpty()) {
-                fetchWeather(selectedCity!!, selectedCountry!!)
+                weatherViewModel.getWeatherByLocation(selectedCity!!, selectedCountry!!)
             } else {
                 Toast.makeText(requireContext(), getString(R.string.select_country_city), Toast.LENGTH_SHORT).show()
             }
         }
+
+        observeWeatherData()
     }
 
     private fun fetchCountries() {
@@ -107,47 +107,24 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
         }
     }
 
-    private fun fetchWeather(city: String, country: String) {
-        binding.tvWeatherCity.visibility = View.GONE
-        binding.tvWeatherCountry.visibility = View.GONE
+    private fun observeWeatherData() {
+        weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
+            if (weatherData != null) {
+                binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
+                binding.tvWeatherCountry.text = getString(R.string.weather_country, weatherData.country)
 
-        weatherViewModel.getWeatherByLocation(city, country).observe(viewLifecycleOwner) { dataStatus ->
-            when (val status = dataStatus.status) {
-                is Success -> {
-                    val weatherData = status.data
-                    if (weatherData != null) {
-                        binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
-                        binding.tvWeatherCountry.text = getString(R.string.weather_country, weatherData.country)
+                binding.tvWeatherCity.visibility = View.VISIBLE
+                binding.tvWeatherCountry.visibility = View.VISIBLE
 
-                        // הצגת העיר והמדינה רק אחרי שהנתונים נטענו בהצלחה
-                        binding.tvWeatherCity.visibility = View.VISIBLE
-                        binding.tvWeatherCountry.visibility = View.VISIBLE
-
-                        binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
-                        binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
-                        binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
-                        binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
-                        binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
-                    } else {
-                        binding.tvWeatherCity.text = getString(R.string.error_empty_data)
-                        binding.tvWeatherCountry.text = ""
-                    }
-                }
-                is Loading -> {
-                    binding.tvWeatherCity.text = getString(R.string.loading)
-                    binding.tvWeatherCountry.text = ""
-                }
-                is Error -> {
-                    binding.tvWeatherCity.text = getString(R.string.error, status.message)
-                    binding.tvWeatherCountry.text = ""
-                }
-                else -> {
-                    binding.tvWeatherCity.text = getString(R.string.error, "Unknown error")
-                    binding.tvWeatherCountry.text = ""
-                }
+                binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
+                binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
+                binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
+                binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
+                binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
+            } else {
+                binding.tvWeatherCity.text = getString(R.string.error_empty_data)
+                binding.tvWeatherCountry.text = ""
             }
         }
     }
-
 }
-
