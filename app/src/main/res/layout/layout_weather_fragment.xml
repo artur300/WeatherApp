@@ -1,103 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/def_background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- תמונת רקע -->
         <ImageView
             android:id="@+id/weatherBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@drawable/def"
-            android:contentDescription="@string/weather_background"
-            android:visibility="visible"
-            android:adjustViewBounds="true"/>
+            android:contentDescription="@string/weather_background"/>
 
+        <!-- ספינרים -->
         <Spinner
             android:id="@+id/spinner_country"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"/>
 
         <Spinner
             android:id="@+id/spinner_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:layout_marginTop="8dp"/>
 
+        <!-- כפתור חיפוש -->
         <Button
             android:id="@+id/btn_fetch_weather"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/fetch_weather"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
 
-        <!-- מקום להצגת התוצאות -->
-        <TextView
-            android:id="@+id/tvWeatherCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/city"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tvWeatherCountry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/country"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/tvTemperature"
+        <!-- כרטיסייה להצגת המידע -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"/>
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="6dp"
+            android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tvFeelsLike"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- שם העיר -->
+                <TextView
+                    android:id="@+id/tvWeatherCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/city_n_a"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- שם המדינה -->
+                <TextView
+                    android:id="@+id/tvWeatherCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/country_n_a"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- טמפרטורה -->
+                <TextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temperature_c"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- מרגיש כמו -->
+                <TextView
+                    android:id="@+id/tvFeelsLike"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/feels_like_c"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- מהירות רוח -->
+                <TextView
+                    android:id="@+id/tvWindSpeed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind_speed_km_h"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- לחות -->
+                <TextView
+                    android:id="@+id/tvHumidity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/humidity_start_screen"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- מצב מזג האוויר -->
+                <TextView
+                    android:id="@+id/tvCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/condition_n_a"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- אייקון מזג האוויר -->
+                <ImageView
+                    android:id="@+id/weatherIcon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tempicon"
+                    android:contentDescription="@string/weather_icon"/>
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/btn_favorites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/add_to_favorites"
             android:textSize="16sp"
-            android:padding="8dp"/>
-
-        <TextView
-            android:id="@+id/tvWindSpeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"/>
-
-        <TextView
-            android:id="@+id/tvHumidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"/>
-
-        <TextView
-            android:id="@+id/tvCondition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"/>
-
-        <ImageView
-            android:id="@+id/weatherIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="@string/weather_icon"/>
+            android:padding="10dp"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"/>
 
     </LinearLayout>
 </ScrollView>
+

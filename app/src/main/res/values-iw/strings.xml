@@ -21,5 +21,19 @@
     <string name="condition">תיאור: %1$s</string>
     <string name="city">עיר:</string>
     <string name="country">מדינה:</string>
+
+
+    <string name="weather_icon">אייקון מזג האוויר</string>
+    <string name="weather_background">רקע מזג האוויר</string>
+    <string name="city_n_a">עיר: אין מידע</string>
+    <string name="country_n_a">מדינה: אין מידע</string>
+    <string name="temperature_c">טמפרטורה: --°C</string>
+    <string name="feels_like_c">מרגיש כמו: --°C</string>
+    <string name="wind_speed_km_h">מהירות רוח: -- קמ"ש</string>
+    <string name="humidity_start_screen">לחות: --%</string>
+    <string name="condition_n_a">מצב מזג האוויר: אין מידע</string>
+    <string name="add_to_favorites">הוסף למועדפים</string>
+
+
 </resources>
 
