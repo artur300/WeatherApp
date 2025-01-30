@@ -29,18 +29,18 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
         <!-- ספינרים -->
-        <Spinner
-            android:id="@+id/spinner_country"
+        <EditText
+            android:id="@+id/etSearchCity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
-
-        <Spinner
-            android:id="@+id/spinner_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="8dp"/>
+            android:hint="@string/search_city_hint"
+            android:drawableStart="@android:drawable/ic_menu_search"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:background="@android:drawable/editbox_background"
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"/>
 
         <!-- כפתור חיפוש -->
         <Button

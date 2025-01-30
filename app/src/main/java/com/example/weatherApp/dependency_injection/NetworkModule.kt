@@ -3,6 +3,7 @@ package com.example.weatherApp.dependency_injection
 import android.content.Context
 import androidx.room.Room
 import com.example.weatherApp.helper_classes.BaseUrlProvider
+import com.example.weatherApp.weather_data.api_weather_dataBase.WeatherSearchService
 import com.example.weatherApp.weather_data.api_weather_dataBase.WeatherService
 import com.example.weatherApp.weather_data.local_weather_dataBase.WeatherDataDao
 import com.google.gson.Gson
@@ -61,5 +62,12 @@ object DatabaseModule {
     @Singleton
     fun provideWeatherDataDao(database: WeatherDatabase): WeatherDataDao {
         return database.weatherDataDao()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideWeatherSearchService(retrofit: Retrofit): WeatherSearchService {
+        return retrofit.create(WeatherSearchService::class.java)
     }
 }
