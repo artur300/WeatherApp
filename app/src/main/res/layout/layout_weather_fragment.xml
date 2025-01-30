@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <!-- תמונת רקע -->
         <ImageView
             android:id="@+id/weatherBackground"
@@ -21,6 +22,12 @@
             android:src="@drawable/def"
             android:contentDescription="@string/weather_background"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
         <!-- ספינרים -->
         <Spinner
             android:id="@+id/spinner_country"

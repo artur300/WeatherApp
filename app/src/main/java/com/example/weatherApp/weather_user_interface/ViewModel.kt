@@ -2,6 +2,7 @@ package com.example.weatherApp.weather_user_interface
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherApp.weather_data.repositories.WeatherRepository
@@ -16,15 +17,18 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     val weatherData: LiveData<WeatherRoomEntity?> = repository.weatherData
+    val isLoading = MutableLiveData<Boolean>() // ✅ משתנה חדש למעקב אחר מצב הטעינה
 
     fun getWeatherByLocation(city: String, country: String) {
-        Log.d("WeatherViewModel", "📌 Fetching weather data for: $city, $country")
+        isLoading.value = true // ✅ נתונים נטענים - נציג ProgressBar
 
         viewModelScope.launch {
             repository.fetchWeather(city, country)
+            isLoading.value = false // ✅ סיום טעינה - להסתיר ProgressBar
         }
     }
 }
+
 
 
 

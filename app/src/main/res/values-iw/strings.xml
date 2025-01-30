@@ -34,6 +34,9 @@
     <string name="condition_n_a">מצב מזג האוויר: אין מידע</string>
     <string name="add_to_favorites">הוסף למועדפים</string>
 
-
+    <string name="request_failed">הבקשה נכשלה</string>
+    <string name="try_again_message">נראה שהייתה בעיה. האם תרצה לנסות שוב?</string>
+    <string name="retry">נסה שוב</string>
+    <string name="cancel">ביטול</string>
 </resources>
 

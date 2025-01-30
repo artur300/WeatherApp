@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.weatherApp.R
 import com.example.weatherApp.databinding.LayoutWeatherFragmentBinding
+import com.example.weatherApp.helper_classes.CustomDialogHelper
 import com.example.weatherApp.helper_classes.WeatherBackgroundProvider
 import com.example.weatherApp.weather_data.api_weather_dataBase.CountriesApiService
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,9 +46,11 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
         Log.d("WeatherFragment", "onViewCreated called - Initializing UI components")
 
         fetchCountries()
+        observeLoadingState() // ✅ מעקב אחר מצב טעינה
 
         binding.btnFetchWeather.setOnClickListener {
             if (!selectedCountry.isNullOrEmpty() && !selectedCity.isNullOrEmpty()) {
+                binding.progressBar.visibility = View.VISIBLE // ✅ הצגת ProgressBar
                 weatherViewModel.getWeatherByLocation(selectedCity!!, selectedCountry!!)
             } else {
                 Toast.makeText(requireContext(), getString(R.string.select_country_city), Toast.LENGTH_SHORT).show()
@@ -58,6 +61,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
     }
 
     private fun fetchCountries() {
+        binding.progressBar.visibility = View.VISIBLE // ✅ הצגת ProgressBar בתחילת השליפה
         lifecycleScope.launch {
             try {
                 val response = countriesApiService.getCountries()
@@ -67,10 +71,21 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                     setupCountrySpinner(countryCityMap.keys.toList())
                 } else {
                     Log.e("WeatherFragment", "Failed to fetch countries")
+                    showRetryDialog()
                 }
             } catch (e: Exception) {
                 Log.e("WeatherFragment", "Error fetching countries: ${e.message}")
+                showRetryDialog()
+            } finally {
+                binding.progressBar.visibility = View.GONE // ✅ הסתרת ProgressBar לאחר סיום השליפה
             }
+        }
+    }
+
+    // ✅ פונקציה להצגת הדיאלוג כאשר הבקשה נכשלת
+    private fun showRetryDialog() {
+        CustomDialogHelper.showRetryDialog(requireContext()) {
+            fetchCountries() // קריאה מחדש לפונקציה
         }
     }
 
@@ -109,33 +124,32 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
         }
     }
 
+    private fun observeLoadingState() {
+        weatherViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
     private fun observeWeatherData() {
         weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
+            binding.progressBar.visibility = View.GONE // ✅ הסתרת ProgressBar לאחר טעינה
             if (weatherData != null) {
                 binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
                 binding.tvWeatherCountry.text = getString(R.string.weather_country, weatherData.country)
-
-                binding.tvWeatherCity.visibility = View.VISIBLE
-                binding.tvWeatherCountry.visibility = View.VISIBLE
-
                 binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
-                //-----------------------icon-------
+
                 Glide.with(this)
                     .load(weatherData.conditionIcon)
                     .into(binding.weatherIcon)
-                //----------------------------------
 
                 binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
                 binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
                 binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
                 binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
 
-                //-- ✅ שינוי תמונת הרקע בהתאם למצב מזג האוויר
                 binding.weatherBackground.setImageResource(
                     WeatherBackgroundProvider.getBackgroundForCondition(weatherData.conditionText)
                 )
-                //-----------------------------------------------------------------------------
-
             } else {
                 binding.tvWeatherCity.text = getString(R.string.error_empty_data)
                 binding.tvWeatherCountry.text = ""
