@@ -1,3 +1,6 @@
+
+@file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
+
 package com.example.weatherApp.dependency_injection
 
 import android.content.Context
@@ -54,7 +57,7 @@ object DatabaseModule {
             appContext,
             WeatherDatabase::class.java,
             "weather_database"
-        ).fallbackToDestructiveMigration() // טיפול בשינויים בסכמת מסד הנתונים
+        ).fallbackToDestructiveMigration()
             .build()
     }
 
@@ -68,6 +71,30 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideWeatherSearchService(retrofit: Retrofit): WeatherSearchService {
-        return retrofit.create(WeatherSearchService::class.java)
+        return retrofit.create(WeatherSearchService::class.java)// יצירת מופע של WeatherSearchService בעזרת Retrofit
     }
 }
+
+/**
+ *  סיכום הפונקציות:
+
+ *  provideRetrofit
+ *    - יוצר ומגדיר חיבור לשרת בעזרת רטרופיט כדי לבצע בקשות ולהביא נתונים מהרשת.
+
+ *  provideGson
+ *    - מספק כלי להמרת נתונים בפורמט ג'יסון לאובייקטים ולהפך.
+
+ *  provideWeatherService
+ *    - מחזיר מופע שמאפשר גישה לשירותי מזג האוויר דרך השרת.
+
+ *  provideLocalDatabase
+ *    - יוצר את מסד הנתונים המקומי של האפליקציה כדי לאחסן נתונים גם כשאין חיבור לרשת.
+
+ *  provideWeatherDataDao
+ *    - מספק גישה לפונקציות שמנהלות את הנתונים של מזג האוויר בתוך מסד הנתונים.
+
+ *  provideWeatherSearchService
+ *    - מאפשר חיפוש ערים בשרת כדי להביא מידע על מיקומים זמינים.
+
+ * 💡 קובץ זה מאפשר לכל חלקי האפליקציה להשתמש ברכיבים הללו בלי צורך ליצור אותם מחדש בכל פעם.
+ */

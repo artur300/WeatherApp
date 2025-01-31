@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
+
 package com.example.weatherApp.weather_user_interface
 
 import android.os.Bundle
@@ -24,7 +26,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
     private var selectedCity: String? = null
     private var selectedCountry: String? = null
-    private var userPressedSearch: Boolean = false // ✅ משתנה שבודק אם המשתמש לחץ על חיפוש
+    private var userPressedSearch: Boolean = false //  משתנה שבודק אם המשתמש לחץ על חיפוש
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,13 +39,13 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
         observeSearchResults()
 
         binding.btnFetchWeather.setOnClickListener {
-            userPressedSearch = true // ✅ המשתמש לחץ על חיפוש
+            userPressedSearch = true //  המשתמש לחץ על חיפוש
 
             if (selectedCity.isNullOrEmpty() || selectedCountry.isNullOrEmpty()) {
-                // ✅ אם המשתמש לא הזין עיר ומדינה, להציג טוסט מתאים
+                //  אם המשתמש לא הזין עיר ומדינה, להציג טוסט מתאים
                 showToast(getString(R.string.select_country_city))
             } else {
-                // ✅ אם המשתמש הזין עיר ומדינה, לבדוק מזג אוויר
+                //  אם המשתמש הזין עיר ומדינה, לבדוק מזג אוויר
                 binding.progressBar.visibility = View.VISIBLE
                 weatherViewModel.getWeatherByLocation(selectedCity!!, selectedCountry!!)
             }
@@ -51,7 +53,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
     }
 
     /**
-     * ✅ פונקציה לטיפול בהשלמה אוטומטית של חיפוש ערים
+     *  פונקציה לטיפול בהשלמה אוטומטית של חיפוש ערים
      */
     private fun setupSearchField() {
         val autoCompleteTextView: AutoCompleteTextView = binding.etSearchCity
@@ -61,8 +63,8 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
         autoCompleteTextView.addTextChangedListener { text ->
             val query = text.toString()
-            if (query.length > 2) { // ✅ חיפוש רק אם יש יותר מ-2 תווים
-                userPressedSearch = false // ✅ המשתמש רק מקליד, לא ללחוץ על חיפוש
+            if (query.length > 2) { //  חיפוש רק אם יש יותר מ-2 תווים
+                userPressedSearch = false //  המשתמש רק מקליד, לא ללחוץ על חיפוש
                 weatherViewModel.searchLocations(query)
             }
         }
@@ -77,7 +79,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
     }
 
     /**
-     * ✅ מאזין לנתוני החיפוש מה-ViewModel
+     *  מאזין לנתוני החיפוש מה-ViewModel
      */
     private fun observeSearchResults() {
         weatherViewModel.searchResults.observe(viewLifecycleOwner) { results ->
@@ -93,20 +95,20 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
                 autoCompleteAdapter.notifyDataSetChanged()
             } else {
-                Log.e("WeatherFragment", "❌ Adapter is not of type ArrayAdapter<String>")
+                Log.e("WeatherFragment", " Adapter is not of type ArrayAdapter<String>")
             }
         }
     }
 
     /**
-     * ✅ מעקב אחר נתוני מזג האוויר מה-ViewModel ועדכון ה-UI
+     *  מעקב אחר נתוני מזג האוויר מה-ViewModel ועדכון ה-UI
      */
     private fun observeWeatherData() {
         weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
             binding.progressBar.visibility = View.GONE
-            if (userPressedSearch) { // ✅ רק אם המשתמש לחץ על חיפוש
+            if (userPressedSearch) { //  רק אם המשתמש לחץ על חיפוש
                 if (weatherData != null) {
-                    // ✅ אם נמצאה תוצאה, להציג הודעה שהתוצאה נמצאה
+                    //  אם נמצאה תוצאה, להציג הודעה שהתוצאה נמצאה
                     showToast(getString(R.string.result_found))
 
                     binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
@@ -126,7 +128,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
                         WeatherBackgroundProvider.getBackgroundForCondition(weatherData.conditionText)
                     )
                 } else {
-                    // ✅ אם לא נמצאה תוצאה, להציג הודעת שגיאה
+                    //  אם לא נמצאה תוצאה, להציג הודעת שגיאה
                     showToast(getString(R.string.no_matching_city))
                 }
             }
@@ -134,7 +136,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
     }
 
     /**
-     * ✅ פונקציה כללית להצגת הודעות Toast
+     *  פונקציה כללית להצגת הודעות Toast
      */
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -143,5 +145,35 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
 
 
+/**
+ * סיכום המחלקה:
+
+ * WeatherFragment
+ * - מחלקת ממשק משתמש המייצגת את המסך הראשי להצגת מזג האוויר וחיפוש ערים.
+ * - משתמשת ב-ViewModel כדי לקבל ולהציג נתונים ממשקיעים שונים.
+
+ * פונקציות:
+
+ * onViewCreated
+ * - מופעלת כאשר התצוגה נטענת, מבצעת אתחול ומאזינה לאירועים של ממשק המשתמש.
+ * - מגדירה את כפתור החיפוש ומוודאת אם המשתמש הזין עיר ומדינה לפני השליחה.
+
+ * setupSearchField
+ * - מטפלת בהשלמה אוטומטית של חיפוש ערים.
+ * - מאזינה לקלט שהמשתמש מקליד ומבצעת חיפוש ברשת רק אם יש יותר משני תווים.
+
+ * observeSearchResults
+ * - מאזינה לנתוני החיפוש שחזרו מה-ViewModel.
+ * - מעדכנת את רשימת ההצעות בערך שקיבלנו מה-API.
+
+ * observeWeatherData
+ * - מאזינה לשינויים בנתוני מזג האוויר שהתקבלו ומעדכנת את ממשק המשתמש בהתאם.
+ * - אם נמצא מזג אוויר מתאים, הוא מוצג; אחרת, מופיעה הודעה שהעיר לא נמצאה.
+
+ * showToast
+ * - מציגה הודעות למשתמש באמצעות Toast.
+
+ * מטרת המחלקה היא להפעיל את כל הפונקציונליות הקשורה לחיפוש מזג אוויר ולהציג את הנתונים למשתמש.
+ */
 
 

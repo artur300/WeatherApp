@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
+
 package com.example.weatherApp.weather_data.local_weather_dataBase
 
 
@@ -30,3 +32,30 @@ abstract class WeatherDatabase : RoomDatabase() {
         }
     }
 }
+
+
+/**
+ * סיכום המחלקה:
+
+ * WeatherDatabase
+ * - מחלקת מסד נתונים מקומית המבוססת על Room.
+ * - מאפשרת שמירת נתוני מזג האוויר במכשיר לטובת שימוש לא מקוון.
+
+ * רכיבים:
+
+ * @Database
+ * - מגדיר את מסד הנתונים, כולל הישויות שהוא תומך בהן.
+ * - בגרסה הנוכחית, הוא מכיל את הישות WeatherRoomEntity.
+
+ * פונקציות:
+
+ * weatherDataDao
+ * - מספק גישה לפונקציות הנתונים במסד הנתונים באמצעות מחלקת ה-DAO.
+
+ * getDatabase
+ * - פונקציה סטטית שמחזירה מופע של מסד הנתונים.
+ * - משתמשת ב-Singleton כך שקיים מופע אחד בלבד במהלך חיי האפליקציה.
+ * - משתמשת ב-fallbackToDestructiveMigration לטיפול בשדרוגי גרסאות של מסד הנתונים.
+
+ * מטרת המחלקה היא לספק גישה קלה וניהול נכון של נתוני מזג האוויר השמורים מקומית.
+ */

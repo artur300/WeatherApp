@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
+
 package com.example.weatherApp.weather_data.api_weather_dataBase
 
 import android.util.Log
@@ -30,9 +32,26 @@ class WeatherRemoteDataSource @Inject constructor(
                 country = data.location.country
             )
         }.onFailure {
-            Log.e("WeatherRemoteDataSource", "❌ Failed to fetch weather: ${it.localizedMessage}", it)
+            Log.e("WeatherRemoteDataSource", " Failed to fetch weather: ${it.localizedMessage}", it)
         }
     }
 }
 
 
+/**
+ * סיכום המחלקה:
+
+ * WeatherRemoteDataSource
+ * - מחלקה האחראית על שליפת נתוני מזג האוויר מה-API.
+ * - משתמשת ב-WeatherService כדי לבצע קריאות API.
+ * - מרחיבה את המחלקה NetworkResponseHandler כדי להשתמש בפונקציה handleApiCall לניהול קריאות רשת.
+
+ * פונקציות:
+ * getWeatherByLocation
+ * - מקבלת עיר ומדינה ומבצעת קריאה ל-API כדי לקבל את נתוני מזג האוויר.
+ * - משתמשת ב-handleApiCall כדי לנהל את הקריאה ולוודא שהתשובה תקינה.
+ * - ממירה את הנתונים שהתקבלו לאובייקט מסוג WeatherRoomEntity שמתאים לאחסון מקומי במסד נתונים.
+ * - במקרה של כישלון, רושמת הודעת שגיאה ללוג.
+
+ * מטרת המחלקה היא לאפשר גישה פשוטה ובטוחה לנתוני מזג האוויר מרחוק תוך שימוש בטכניקות של ניהול שגיאות וניקוי קוד.
+ */

@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection") // ביטול בדיקת שגיאות כתיב בקובץ
+
 package com.example.weatherApp.helper_classes
 
 import android.app.Application
