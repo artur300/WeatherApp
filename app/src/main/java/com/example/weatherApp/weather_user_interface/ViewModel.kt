@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherApp.weather_data.repositories.WeatherRepository
-import com.example.weatherApp.weather_data.weather_models.SearchResponseItem
+import com.example.weatherApp.weather_data.weather_models.LocationData
 import com.example.weatherApp.weather_data.weather_models.WeatherRoomEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,29 +17,25 @@ class WeatherViewModel @Inject constructor(
 ) : ViewModel() {
 
     val weatherData: LiveData<WeatherRoomEntity?> = repository.weatherData
-    val isLoading = MutableLiveData<Boolean>() // ✅ משתנה חדש למעקב אחר מצב הטעינה
-    private val _searchResults = MutableLiveData<List<SearchResponseItem>>() // ✅ תוצאות החיפוש
-    val searchResults: LiveData<List<SearchResponseItem>> get() = _searchResults
+    private val _searchResults = MutableLiveData<List<LocationData>>() // ✅ מחזיר נתונים ל-Fragment
+    val searchResults: LiveData<List<LocationData>> get() = _searchResults
 
     fun getWeatherByLocation(city: String, country: String) {
-        isLoading.value = true // ✅ הצגת ProgressBar
-
         viewModelScope.launch {
             repository.fetchWeather(city, country)
-            isLoading.value = false // ✅ הסתרת ProgressBar
         }
     }
 
-    // ✅ פונקציה חדשה לחיפוש ערים
-    fun searchLocations(query: String, onResult: (List<SearchResponseItem>?) -> Unit) {
+    // ✅ עדכון החיפוש - שימוש ב-LiveData
+    fun searchLocations(query: String) {
         viewModelScope.launch {
-            repository.searchLocations(query) { results ->
-                _searchResults.postValue(results ?: emptyList()) // ✅ עדכון ה-LiveData
-                onResult(results)
-            }
+            val results = repository.searchLocations(query)
+            _searchResults.postValue(results ?: emptyList())
         }
     }
 }
+
+
 
 
 

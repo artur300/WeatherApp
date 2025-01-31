@@ -3,7 +3,6 @@
     <string name="app_name">אפליקציית מזג האוויר</string>
     <string name="select_country">בחר מדינה</string>
     <string name="select_city">בחר עיר</string>
-    <string name="select_country_city">נא לבחור מדינה ועיר</string>
     <string name="fetching_weather">טוען נתוני מזג אוויר...</string>
     <string name="loading">טוען...</string>
     <string name="error">שגיאה: %1$s</string>
@@ -38,5 +37,12 @@
     <string name="try_again_message">נראה שהייתה בעיה. האם תרצה לנסות שוב?</string>
     <string name="retry">נסה שוב</string>
     <string name="cancel">ביטול</string>
+    <string name="search_city_hint">חפש עיר</string>
+    <string name="search_city">חפש עיר</string>
+    <string name="select_country_city">בחר עיר ומדינה לפני החיפוש</string>
+    <string name="no_matching_city">לא נמצאה עיר תואמת, נסה שוב או רשום עיר, מדינה</string>
+    <string name="search_failed">החיפוש נכשל, נסה שוב מאוחר יותר</string>
+    <string name="result_found">התוצאה נמצאה!</string>
+
 </resources>
 

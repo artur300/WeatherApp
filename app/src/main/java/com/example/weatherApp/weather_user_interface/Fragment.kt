@@ -3,6 +3,8 @@ package com.example.weatherApp.weather_user_interface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -10,7 +12,6 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.weatherApp.R
 import com.example.weatherApp.databinding.LayoutWeatherFragmentBinding
-import com.example.weatherApp.helper_classes.CustomDialogHelper
 import com.example.weatherApp.helper_classes.WeatherBackgroundProvider
 import dagger.hilt.android.AndroidEntryPoint
 import il.co.syntax.fullarchitectureretrofithiltkotlin.utils.autoCleared
@@ -23,6 +24,7 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
     private var selectedCity: String? = null
     private var selectedCountry: String? = null
+    private var userPressedSearch: Boolean = false // ✅ משתנה שבודק אם המשתמש לחץ על חיפוש
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,68 +34,114 @@ class WeatherFragment : Fragment(R.layout.layout_weather_fragment) {
 
         setupSearchField()
         observeWeatherData()
+        observeSearchResults()
 
         binding.btnFetchWeather.setOnClickListener {
-            if (!selectedCity.isNullOrEmpty() && !selectedCountry.isNullOrEmpty()) {
+            userPressedSearch = true // ✅ המשתמש לחץ על חיפוש
+
+            if (selectedCity.isNullOrEmpty() || selectedCountry.isNullOrEmpty()) {
+                // ✅ אם המשתמש לא הזין עיר ומדינה, להציג טוסט מתאים
+                showToast(getString(R.string.select_country_city))
+            } else {
+                // ✅ אם המשתמש הזין עיר ומדינה, לבדוק מזג אוויר
                 binding.progressBar.visibility = View.VISIBLE
                 weatherViewModel.getWeatherByLocation(selectedCity!!, selectedCountry!!)
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.select_country_city), Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // ✅ מחליף את הפונקציה הישנה של "שליפת מדינות" - משתמש ב-EditText לחיפוש חכם
+    /**
+     * ✅ פונקציה לטיפול בהשלמה אוטומטית של חיפוש ערים
+     */
     private fun setupSearchField() {
-        binding.etSearchCity.addTextChangedListener { text ->
+        val autoCompleteTextView: AutoCompleteTextView = binding.etSearchCity
+        val autoCompleteAdapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line)
+
+        autoCompleteTextView.setAdapter(autoCompleteAdapter)
+
+        autoCompleteTextView.addTextChangedListener { text ->
             val query = text.toString()
-            if (query.length > 2) { // ✅ מתחילים חיפוש רק אחרי 3 תווים
-                weatherViewModel.searchLocations(query) { results ->
-                    if (results != null && results.isNotEmpty()) {
-                        val firstResult = results.first()  // בוחר את התוצאה הראשונה אוטומטית
-                        selectedCity = firstResult.name
-                        selectedCountry = firstResult.country
-                    } else {
-                        showRetryDialog()
-                    }
+            if (query.length > 2) { // ✅ חיפוש רק אם יש יותר מ-2 תווים
+                userPressedSearch = false // ✅ המשתמש רק מקליד, לא ללחוץ על חיפוש
+                weatherViewModel.searchLocations(query)
+            }
+        }
+
+        autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
+            val selected = autoCompleteAdapter.getItem(position)?.split(", ")
+            if (selected?.size == 2) {
+                selectedCity = selected[0]
+                selectedCountry = selected[1]
+            }
+        }
+    }
+
+    /**
+     * ✅ מאזין לנתוני החיפוש מה-ViewModel
+     */
+    private fun observeSearchResults() {
+        weatherViewModel.searchResults.observe(viewLifecycleOwner) { results ->
+            val adapter = binding.etSearchCity.adapter
+            if (adapter is ArrayAdapter<*>) {
+                val autoCompleteAdapter = adapter as ArrayAdapter<String>
+                autoCompleteAdapter.clear()
+
+                if (results.isNotEmpty()) {
+                    val cityList = results.map { "${it.name}, ${it.country}" }
+                    autoCompleteAdapter.addAll(cityList)
+                }
+
+                autoCompleteAdapter.notifyDataSetChanged()
+            } else {
+                Log.e("WeatherFragment", "❌ Adapter is not of type ArrayAdapter<String>")
+            }
+        }
+    }
+
+    /**
+     * ✅ מעקב אחר נתוני מזג האוויר מה-ViewModel ועדכון ה-UI
+     */
+    private fun observeWeatherData() {
+        weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
+            binding.progressBar.visibility = View.GONE
+            if (userPressedSearch) { // ✅ רק אם המשתמש לחץ על חיפוש
+                if (weatherData != null) {
+                    // ✅ אם נמצאה תוצאה, להציג הודעה שהתוצאה נמצאה
+                    showToast(getString(R.string.result_found))
+
+                    binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
+                    binding.tvWeatherCountry.text = getString(R.string.weather_country, weatherData.country)
+                    binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
+
+                    Glide.with(this)
+                        .load(weatherData.conditionIcon)
+                        .into(binding.weatherIcon)
+
+                    binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
+                    binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
+                    binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
+                    binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
+
+                    binding.weatherBackground.setImageResource(
+                        WeatherBackgroundProvider.getBackgroundForCondition(weatherData.conditionText)
+                    )
+                } else {
+                    // ✅ אם לא נמצאה תוצאה, להציג הודעת שגיאה
+                    showToast(getString(R.string.no_matching_city))
                 }
             }
         }
     }
 
-    // ✅ פונקציה להצגת דיאלוג כאשר החיפוש נכשל
-    private fun showRetryDialog() {
-        CustomDialogHelper.showRetryDialog(requireContext()) {
-            setupSearchField() // חיפוש מחדש
-        }
-    }
-
-    private fun observeWeatherData() {
-        weatherViewModel.weatherData.observe(viewLifecycleOwner) { weatherData ->
-            binding.progressBar.visibility = View.GONE
-            if (weatherData != null) {
-                binding.tvWeatherCity.text = getString(R.string.weather_city, weatherData.name)
-                binding.tvWeatherCountry.text = getString(R.string.weather_country, weatherData.country)
-                binding.tvTemperature.text = getString(R.string.temperature, weatherData.tempC)
-
-                Glide.with(this)
-                    .load(weatherData.conditionIcon)
-                    .into(binding.weatherIcon)
-
-                binding.tvFeelsLike.text = getString(R.string.feels_like, weatherData.feelsLikeC)
-                binding.tvWindSpeed.text = getString(R.string.wind_speed, weatherData.windKph, weatherData.windDir)
-                binding.tvHumidity.text = getString(R.string.humidity, weatherData.humidity)
-                binding.tvCondition.text = getString(R.string.condition, weatherData.conditionText)
-
-                binding.weatherBackground.setImageResource(
-                    WeatherBackgroundProvider.getBackgroundForCondition(weatherData.conditionText)
-                )
-            } else {
-                binding.tvWeatherCity.text = getString(R.string.error_empty_data)
-                binding.tvWeatherCountry.text = ""
-            }
-        }
+    /**
+     * ✅ פונקציה כללית להצגת הודעות Toast
+     */
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }
+
+
+
 
 

@@ -3,7 +3,6 @@
     <string name="app_name">Weather App</string>
     <string name="select_country">Select a Country</string>
     <string name="select_city">Select a City</string>
-    <string name="select_country_city">Please select a country and city</string>
     <string name="fetching_weather">Fetching weather data...</string>
     <string name="loading">Loading...</string>
     <string name="error">Error: %1$s</string>
@@ -38,6 +37,12 @@
     <string name="retry">Retry</string>
     <string name="cancel">Cancel</string>
     <string name="search_city_hint">search city</string>
+    <string name="search_city">search city</string>
+    <string name="select_country_city">Select a city and country before searching</string>
+    <string name="no_matching_city">No matching city found, try again or enter city, country</string>
+    <string name="search_failed">Search failed, please try again later</string>
+    <string name="result_found">Result found!</string>
+
 
 </resources>
 

@@ -1,6 +1,6 @@
 package com.example.weatherApp.weather_data.api_weather_dataBase
 
-import com.example.weatherApp.weather_data.weather_models.SearchResponseItem
+import com.example.weatherApp.weather_data.weather_models.LocationData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,7 +11,7 @@ interface WeatherSearchService {
     suspend fun searchLocations(
         @Query("key") apiKey: String,
         @Query("q") query: String
-    ): Response<List<SearchResponseItem>>
+    ): Response<List<LocationData>>
 }
 
 
