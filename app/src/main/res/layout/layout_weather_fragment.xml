@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/def_background">
+    android:background="@color/SoftLavender">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
 
         <!-- תמונת רקע -->
         <ImageView
@@ -28,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"/>
-        <!-- ספינרים -->
+
         <AutoCompleteTextView
             android:id="@+id/etSearchCity"
             android:layout_width="match_parent"
@@ -36,8 +35,16 @@
             android:hint="@string/search_city"
             android:textSize="16sp"
             android:padding="10dp"
-            android:background="@android:drawable/editbox_background"
-            android:completionThreshold="1"/>
+            android:background="@null"
+            android:layout_marginTop="8dp"
+            android:inputType="text"
+            android:textColorHint="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white"/>
+
 
         <!-- כפתור חיפוש -->
         <Button
@@ -47,7 +54,7 @@
             android:text="@string/fetch_weather"
             android:textSize="16sp"
             android:padding="10dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/DeepBlue"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
 
@@ -56,19 +63,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="6dp"
-            android:background="@color/white">
+            app:cardBackgroundColor="@color/Purple"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:background="@android:color/transparent">
 
                 <!-- שם העיר -->
                 <TextView
                     android:id="@+id/tvWeatherCity"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/city_n_a"
@@ -78,12 +88,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- שם המדינה -->
                 <TextView
                     android:id="@+id/tvWeatherCountry"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/country_n_a"
@@ -92,12 +103,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- טמפרטורה -->
                 <TextView
                     android:id="@+id/tvTemperature"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/temperature_c"
@@ -106,12 +118,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- מרגיש כמו -->
                 <TextView
                     android:id="@+id/tvFeelsLike"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/feels_like_c"
@@ -120,12 +133,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- מהירות רוח -->
                 <TextView
                     android:id="@+id/tvWindSpeed"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/wind_speed_km_h"
@@ -134,12 +148,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- לחות -->
                 <TextView
                     android:id="@+id/tvHumidity"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/humidity_start_screen"
@@ -148,12 +163,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- מצב מזג האוויר -->
                 <TextView
                     android:id="@+id/tvCondition"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/condition_n_a"
@@ -163,7 +179,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/black"
+                    android:background="@color/SoftLavender"
                     android:layout_marginVertical="12dp"/>
 
                 <!-- אייקון מזג האוויר -->
@@ -176,9 +192,6 @@
                     android:src="@drawable/tempicon"
                     android:contentDescription="@string/weather_icon"/>
             </LinearLayout>
-
-
-
         </androidx.cardview.widget.CardView>
 
         <Button
@@ -188,10 +201,9 @@
             android:text="@string/add_to_favorites"
             android:textSize="16sp"
             android:padding="10dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/DeepBlue"
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"/>
 
     </LinearLayout>
 </ScrollView>
-

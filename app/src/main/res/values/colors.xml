@@ -2,23 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#3B7302</color>
-    <color name="def_background">#D7C299</color>
-    <color name="orange">#F29F05</color>
-    <color name="beige">#F2EADF</color>
-    <color name="bright_orange">#F2790F</color>
-    <color name="coral_red">#F26457</color>
-    <!-- התאמה לצבעים כלליים -->
-    <color name="primary">#3B7302</color> <!-- יכול לשמש כצבע ראשי -->
-    <color name="secondary">#F29F05</color> <!-- יכול לשמש כצבע משני -->
-    <color name="background">#F2EADF</color> <!-- צבע רקע -->
-    <color name="accent">#F2790F</color> <!-- צבע דגש -->
-    <color name="error">#F26457</color> <!-- צבע לשגיאות -->
+    <color name="Purple">#7A5FD9</color>
+    <color name="SoftLavender">#D2C9F2</color>
+    <color name="LightLilac">#E1DCF2</color>
+    <color name="DeepBlue">#3470BF</color>
+    <color name="TealGreen">#59D9AA</color>
 
 
-    <style name="CustomTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/orange</item>
-        <item name="boxBackgroundColor">@color/beige</item>
-        <item name="android:textColor">@color/coral_red</item>
-    </style>
 </resources>
